@@ -8,11 +8,11 @@
 import WidgetKit
 import AppIntents
 
-struct ConfigurationAppIntent: WidgetConfigurationIntent {
-    static var title: LocalizedStringResource { "Configuration" }
-    static var description: IntentDescription { "This is an example widget." }
-
-    // An example configurable parameter.
-    @Parameter(title: "Favorite Emoji", default: "😃")
-    var favoriteEmoji: String
+struct OpenAppIntent: AppIntent {
+    static var title: LocalizedStringResource { "Open The One Thing" }
+    static var description: IntentDescription { "Open The One Thing app" }
+    
+    func perform() async throws -> some IntentResult {
+        return .result()
+    }
 }

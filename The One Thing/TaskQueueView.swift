@@ -13,6 +13,7 @@ struct TaskQueueView: View {
     @Environment(AppState.self) private var appState
     @Query(sort: \Task.priority, order: .forward) private var tasks: [Task]
     @State private var showingAddTask = false
+    @State private var showingSettings = false
     @State private var newTaskTitle = ""
     
     var pendingTasks: [Task] {
@@ -31,6 +32,12 @@ struct TaskQueueView: View {
             .navigationTitle("The Queue")
             .navigationBarTitleDisplayMode(.large)
             .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button(action: { showingSettings = true }) {
+                        Image(systemName: "gear")
+                    }
+                }
+                
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: { showingAddTask = true }) {
                         Image(systemName: "plus")
@@ -40,6 +47,9 @@ struct TaskQueueView: View {
         }
         .sheet(isPresented: $showingAddTask) {
             addTaskSheet
+        }
+        .sheet(isPresented: $showingSettings) {
+            SettingsView()
         }
     }
     
@@ -137,6 +147,9 @@ struct TaskQueueView: View {
     }
     
     private func startFocusMode(with task: Task) {
+        HapticManager.shared.playButtonTap()
+        SoundManager.shared.playButtonTap()
+        
         withAnimation(.easeInOut(duration: 0.5)) {
             appState.startFocusMode(with: task)
         }

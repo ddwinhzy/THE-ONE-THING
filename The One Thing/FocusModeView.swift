@@ -91,6 +91,9 @@ struct FocusModeView: View {
     }
     
     private func completeTask() {
+        HapticManager.shared.playTaskComplete()
+        SoundManager.shared.playTaskComplete()
+        
         withAnimation(.easeInOut(duration: 0.5)) {
             appState.completeCurrentTask()
         }
@@ -171,15 +174,30 @@ struct PomodoroTimerView: View {
         if appState.isTimerRunning {
             appState.pauseTimer()
             stopTimer()
+            NotificationManager.shared.cancelAllNotifications()
+            updateLiveActivity()
         } else {
+            HapticManager.shared.playTimerStart()
+            SoundManager.shared.playButtonTap()
             appState.startTimer()
             startTimerIfNeeded()
+            
+            // Schedule notification for timer completion
+            NotificationManager.shared.scheduleTimerCompleteNotification(
+                for: appState.pomodoroTimeRemaining,
+                isBreak: appState.isOnBreak
+            )
+            
+            // Start or update Live Activity
+            startOrUpdateLiveActivity()
         }
     }
     
     private func resetTimer() {
         appState.resetTimer()
         stopTimer()
+        NotificationManager.shared.cancelAllNotifications()
+        LiveActivityManager.shared.endLiveActivity()
     }
     
     private func startTimerIfNeeded() {
@@ -188,14 +206,24 @@ struct PomodoroTimerView: View {
         timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
             if appState.pomodoroTimeRemaining > 0 {
                 appState.pomodoroTimeRemaining -= 1
+                // Update Live Activity every 30 seconds to preserve battery
+                if Int(appState.pomodoroTimeRemaining) % 30 == 0 {
+                    updateLiveActivity()
+                }
             } else {
                 // Timer completed
+                HapticManager.shared.playSuccess()
+                SoundManager.shared.playTimerComplete()
+                
                 appState.isTimerRunning = false
                 appState.isOnBreak.toggle()
                 appState.pomodoroTimeRemaining = appState.isOnBreak ? 
                     appState.pomodoroSettings.breakDuration : 
                     appState.pomodoroSettings.focusDuration
                 stopTimer()
+                
+                // End current Live Activity when timer completes
+                LiveActivityManager.shared.endLiveActivity()
             }
         }
     }
@@ -203,6 +231,25 @@ struct PomodoroTimerView: View {
     private func stopTimer() {
         timer?.invalidate()
         timer = nil
+    }
+    
+    private func startOrUpdateLiveActivity() {
+        guard let taskTitle = appState.currentTask?.title else { return }
+        
+        LiveActivityManager.shared.startLiveActivity(
+            taskTitle: taskTitle,
+            timeRemaining: appState.pomodoroTimeRemaining,
+            isRunning: appState.isTimerRunning,
+            isOnBreak: appState.isOnBreak
+        )
+    }
+    
+    private func updateLiveActivity() {
+        LiveActivityManager.shared.updateLiveActivity(
+            timeRemaining: appState.pomodoroTimeRemaining,
+            isRunning: appState.isTimerRunning,
+            isOnBreak: appState.isOnBreak
+        )
     }
 }
 

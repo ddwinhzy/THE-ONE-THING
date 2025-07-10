@@ -29,6 +29,9 @@ struct The_One_ThingApp: App {
         WindowGroup {
             ContentView()
                 .environment(appState)
+                .onAppear {
+                    NotificationManager.shared.requestPermission()
+                }
         }
         .modelContainer(sharedModelContainer)
     }

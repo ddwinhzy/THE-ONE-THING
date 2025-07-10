@@ -7,80 +7,119 @@
 
 import WidgetKit
 import SwiftUI
+import SwiftData
 
-struct Provider: AppIntentTimelineProvider {
+struct Provider: TimelineProvider {
     func placeholder(in context: Context) -> SimpleEntry {
-        SimpleEntry(date: Date(), configuration: ConfigurationAppIntent())
+        SimpleEntry(date: Date(), currentTask: "Complete the mobile app prototype", isTimerRunning: false, timeRemaining: 25*60)
     }
 
-    func snapshot(for configuration: ConfigurationAppIntent, in context: Context) async -> SimpleEntry {
-        SimpleEntry(date: Date(), configuration: configuration)
+    func getSnapshot(in context: Context, completion: @escaping (SimpleEntry) -> ()) {
+        let entry = SimpleEntry(date: Date(), currentTask: "Complete the mobile app prototype", isTimerRunning: false, timeRemaining: 25*60)
+        completion(entry)
     }
-    
-    func timeline(for configuration: ConfigurationAppIntent, in context: Context) async -> Timeline<SimpleEntry> {
+
+    func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
         var entries: [SimpleEntry] = []
 
         // Generate a timeline consisting of five entries an hour apart, starting from the current date.
         let currentDate = Date()
         for hourOffset in 0 ..< 5 {
             let entryDate = Calendar.current.date(byAdding: .hour, value: hourOffset, to: currentDate)!
-            let entry = SimpleEntry(date: entryDate, configuration: configuration)
+            let entry = SimpleEntry(date: entryDate, currentTask: getCurrentTask(), isTimerRunning: false, timeRemaining: 25*60)
             entries.append(entry)
         }
 
-        return Timeline(entries: entries, policy: .atEnd)
+        let timeline = Timeline(entries: entries, policy: .atEnd)
+        completion(timeline)
     }
-
-//    func relevances() async -> WidgetRelevances<ConfigurationAppIntent> {
-//        // Generate a list containing the contexts this widget is relevant in.
-//    }
+    
+    private func getCurrentTask() -> String {
+        // In a real implementation, this would read from shared container
+        // For now, return a placeholder
+        return "Focus on your One Thing"
+    }
 }
 
 struct SimpleEntry: TimelineEntry {
     let date: Date
-    let configuration: ConfigurationAppIntent
+    let currentTask: String
+    let isTimerRunning: Bool
+    let timeRemaining: TimeInterval
 }
 
 struct WidgetsEntryView : View {
     var entry: Provider.Entry
 
     var body: some View {
-        Text("Time:")
-        Text(entry.date, style: .time)
-
-        Text("Favorite Emoji:")
-        Text(entry.configuration.favoriteEmoji)
+        VStack(alignment: .leading, spacing: 12) {
+            // Header
+            HStack {
+                Text("Your One Thing")
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+                Spacer()
+                Image(systemName: "target")
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+            }
+            
+            // Current task
+            Text(entry.currentTask)
+                .font(.headline)
+                .fontWeight(.medium)
+                .lineLimit(2)
+                .multilineTextAlignment(.leading)
+            
+            Spacer()
+            
+            // Timer info
+            HStack {
+                if entry.isTimerRunning {
+                    Image(systemName: "timer")
+                        .font(.caption)
+                        .foregroundColor(.blue)
+                    Text(timeString(from: entry.timeRemaining))
+                        .font(.caption)
+                        .foregroundColor(.blue)
+                } else {
+                    Image(systemName: "play.circle")
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                    Text("Ready to focus")
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                }
+                Spacer()
+            }
+        }
+        .padding()
+        .containerBackground(.fill.tertiary, for: .widget)
+    }
+    
+    private func timeString(from timeInterval: TimeInterval) -> String {
+        let minutes = Int(timeInterval) / 60
+        let seconds = Int(timeInterval) % 60
+        return String(format: "%02d:%02d", minutes, seconds)
     }
 }
 
 struct Widgets: Widget {
-    let kind: String = "Widgets"
+    let kind: String = "TheOneThingWidget"
 
     var body: some WidgetConfiguration {
-        AppIntentConfiguration(kind: kind, intent: ConfigurationAppIntent.self, provider: Provider()) { entry in
+        StaticConfiguration(kind: kind, provider: Provider()) { entry in
             WidgetsEntryView(entry: entry)
-                .containerBackground(.fill.tertiary, for: .widget)
         }
-    }
-}
-
-extension ConfigurationAppIntent {
-    fileprivate static var smiley: ConfigurationAppIntent {
-        let intent = ConfigurationAppIntent()
-        intent.favoriteEmoji = "😀"
-        return intent
-    }
-    
-    fileprivate static var starEyes: ConfigurationAppIntent {
-        let intent = ConfigurationAppIntent()
-        intent.favoriteEmoji = "🤩"
-        return intent
+        .configurationDisplayName("The One Thing")
+        .description("Keep your current task in focus.")
+        .supportedFamilies([.systemSmall, .systemMedium])
     }
 }
 
 #Preview(as: .systemSmall) {
     Widgets()
 } timeline: {
-    SimpleEntry(date: .now, configuration: .smiley)
-    SimpleEntry(date: .now, configuration: .starEyes)
+    SimpleEntry(date: .now, currentTask: "Complete the mobile app prototype", isTimerRunning: false, timeRemaining: 25*60)
+    SimpleEntry(date: .now, currentTask: "Write the quarterly report", isTimerRunning: true, timeRemaining: 18*60)
 }
