@@ -6,6 +6,12 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		6755696C2E1FDFB300D2B2CA /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6755696B2E1FDFB300D2B2CA /* WidgetKit.framework */; };
+		6755696E2E1FDFB300D2B2CA /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6755696D2E1FDFB300D2B2CA /* SwiftUI.framework */; };
+		6755697C2E1FDFB400D2B2CA /* WidgetsExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 675569692E1FDFB300D2B2CA /* WidgetsExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		675569482E1FDB6100D2B2CA /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -21,12 +27,36 @@
 			remoteGlobalIDString = 675569352E1FDB6100D2B2CA;
 			remoteInfo = "The One Thing";
 		};
+		6755697A2E1FDFB400D2B2CA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6755692E2E1FDB6100D2B2CA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 675569682E1FDFB300D2B2CA;
+			remoteInfo = WidgetsExtension;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		675569812E1FDFB400D2B2CA /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				6755697C2E1FDFB400D2B2CA /* WidgetsExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		675569362E1FDB6100D2B2CA /* The One Thing.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "The One Thing.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		675569472E1FDB6100D2B2CA /* The One ThingTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "The One ThingTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		675569512E1FDB6100D2B2CA /* The One ThingUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "The One ThingUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		675569692E1FDFB300D2B2CA /* WidgetsExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = WidgetsExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		6755696B2E1FDFB300D2B2CA /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = /System/Library/Frameworks/WidgetKit.framework; sourceTree = "<absolute>"; };
+		6755696D2E1FDFB300D2B2CA /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = /System/Library/Frameworks/SwiftUI.framework; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -36,6 +66,13 @@
 				Info.plist,
 			);
 			target = 675569352E1FDB6100D2B2CA /* The One Thing */;
+		};
+		675569802E1FDFB400D2B2CA /* Exceptions for "Widgets" folder in "WidgetsExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 675569682E1FDFB300D2B2CA /* WidgetsExtension */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
@@ -56,6 +93,14 @@
 		675569542E1FDB6100D2B2CA /* The One ThingUITests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = "The One ThingUITests";
+			sourceTree = "<group>";
+		};
+		6755696F2E1FDFB300D2B2CA /* Widgets */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				675569802E1FDFB400D2B2CA /* Exceptions for "Widgets" folder in "WidgetsExtension" target */,
+			);
+			path = Widgets;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -82,6 +127,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		675569662E1FDFB300D2B2CA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6755696E2E1FDFB300D2B2CA /* SwiftUI.framework in Frameworks */,
+				6755696C2E1FDFB300D2B2CA /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -91,6 +145,8 @@
 				675569382E1FDB6100D2B2CA /* The One Thing */,
 				6755694A2E1FDB6100D2B2CA /* The One ThingTests */,
 				675569542E1FDB6100D2B2CA /* The One ThingUITests */,
+				6755696F2E1FDFB300D2B2CA /* Widgets */,
+				6755696A2E1FDFB300D2B2CA /* Frameworks */,
 				675569372E1FDB6100D2B2CA /* Products */,
 			);
 			sourceTree = "<group>";
@@ -101,8 +157,18 @@
 				675569362E1FDB6100D2B2CA /* The One Thing.app */,
 				675569472E1FDB6100D2B2CA /* The One ThingTests.xctest */,
 				675569512E1FDB6100D2B2CA /* The One ThingUITests.xctest */,
+				675569692E1FDFB300D2B2CA /* WidgetsExtension.appex */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		6755696A2E1FDFB300D2B2CA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6755696B2E1FDFB300D2B2CA /* WidgetKit.framework */,
+				6755696D2E1FDFB300D2B2CA /* SwiftUI.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -115,10 +181,12 @@
 				675569322E1FDB6100D2B2CA /* Sources */,
 				675569332E1FDB6100D2B2CA /* Frameworks */,
 				675569342E1FDB6100D2B2CA /* Resources */,
+				675569812E1FDFB400D2B2CA /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				6755697B2E1FDFB400D2B2CA /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				675569382E1FDB6100D2B2CA /* The One Thing */,
@@ -176,6 +244,28 @@
 			productReference = 675569512E1FDB6100D2B2CA /* The One ThingUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		675569682E1FDFB300D2B2CA /* WidgetsExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6755697D2E1FDFB400D2B2CA /* Build configuration list for PBXNativeTarget "WidgetsExtension" */;
+			buildPhases = (
+				675569652E1FDFB300D2B2CA /* Sources */,
+				675569662E1FDFB300D2B2CA /* Frameworks */,
+				675569672E1FDFB300D2B2CA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				6755696F2E1FDFB300D2B2CA /* Widgets */,
+			);
+			name = WidgetsExtension;
+			packageProductDependencies = (
+			);
+			productName = WidgetsExtension;
+			productReference = 675569692E1FDFB300D2B2CA /* WidgetsExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -197,6 +287,9 @@
 						CreatedOnToolsVersion = 16.4;
 						TestTargetID = 675569352E1FDB6100D2B2CA;
 					};
+					675569682E1FDFB300D2B2CA = {
+						CreatedOnToolsVersion = 16.4;
+					};
 				};
 			};
 			buildConfigurationList = 675569312E1FDB6100D2B2CA /* Build configuration list for PBXProject "The One Thing" */;
@@ -216,6 +309,7 @@
 				675569352E1FDB6100D2B2CA /* The One Thing */,
 				675569462E1FDB6100D2B2CA /* The One ThingTests */,
 				675569502E1FDB6100D2B2CA /* The One ThingUITests */,
+				675569682E1FDFB300D2B2CA /* WidgetsExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -236,6 +330,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		6755694F2E1FDB6100D2B2CA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		675569672E1FDFB300D2B2CA /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -266,6 +367,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		675569652E1FDFB300D2B2CA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -278,6 +386,11 @@
 			isa = PBXTargetDependency;
 			target = 675569352E1FDB6100D2B2CA /* The One Thing */;
 			targetProxy = 675569522E1FDB6100D2B2CA /* PBXContainerItemProxy */;
+		};
+		6755697B2E1FDFB400D2B2CA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 675569682E1FDFB300D2B2CA /* WidgetsExtension */;
+			targetProxy = 6755697A2E1FDFB400D2B2CA /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -568,6 +681,84 @@
 			};
 			name = Release;
 		};
+		6755697E2E1FDFB400D2B2CA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = Widgets/Widgets.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = T3VGCDCWKK;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Widgets/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Widgets;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "ink.foxi.The-One-Thing.Widgets";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
+				XROS_DEPLOYMENT_TARGET = 2.5;
+			};
+			name = Debug;
+		};
+		6755697F2E1FDFB400D2B2CA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = Widgets/Widgets.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = T3VGCDCWKK;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Widgets/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Widgets;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "ink.foxi.The-One-Thing.Widgets";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
+				XROS_DEPLOYMENT_TARGET = 2.5;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -603,6 +794,15 @@
 			buildConfigurations = (
 				675569632E1FDB6100D2B2CA /* Debug */,
 				675569642E1FDB6100D2B2CA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6755697D2E1FDFB400D2B2CA /* Build configuration list for PBXNativeTarget "WidgetsExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6755697E2E1FDFB400D2B2CA /* Debug */,
+				6755697F2E1FDFB400D2B2CA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
